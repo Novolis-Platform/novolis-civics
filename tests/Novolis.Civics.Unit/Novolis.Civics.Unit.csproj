@@ -9,6 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="TUnit" />
+    <PackageReference Include="Novolis.Economy.Core" />
     <ProjectReference Include="..\..\src\Novolis.Civics.Core\Novolis.Civics.Core.csproj" />
     <ProjectReference Include="..\..\src\Novolis.Civics.Simulation\Novolis.Civics.Simulation.csproj" />
     <ProjectReference Include="..\..\src\Novolis.Civics.Agents\Novolis.Civics.Agents.csproj" />
