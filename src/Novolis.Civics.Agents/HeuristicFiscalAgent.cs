@@ -10,6 +10,7 @@ public sealed class HeuristicFiscalAgent
         ArgumentNullException.ThrowIfNull(nation);
         var p = nation.Policy;
         var c = nation.Civic;
+        var d = nation.Demography;
 
         if (nation.Treasury < 0)
         {
@@ -17,6 +18,12 @@ public sealed class HeuristicFiscalAgent
             p.HouseholdTaxRate = Math.Min(0.5, p.HouseholdTaxRate + 0.015);
             p.TransferShare = Math.Max(0.05, p.TransferShare - 0.02);
             p.PropagandaShare = Math.Min(0.6, p.PropagandaShare + 0.03);
+        }
+        else if (d.LastEmigrationPressure > 0.55 && nation.Treasury > nation.Gdp * 0.02)
+        {
+            // Ease smothering taxes when people are leaving and treasury can absorb it.
+            p.HouseholdTaxRate = Math.Max(0.12, p.HouseholdTaxRate - 0.015);
+            p.TransferShare = Math.Min(0.55, p.TransferShare + 0.015);
         }
         else if (c.Approval < 0.35)
         {

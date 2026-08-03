@@ -55,6 +55,35 @@ public static class CivicEconomyBridge
             ResearchMultiplier = b.ResearchMultiplier,
             ObservedTaxCollected = Math.Max(0, taxCollected),
             ObservedTransfersPaid = Math.Max(0, transfersPaid),
+            NetMigration = b.NetMigration,
+            UnemploymentObserved = b.UnemploymentObserved,
         };
+    }
+
+    /// <summary>
+    /// Sum household counts across cohorts as a nation population hint
+    /// (scale by <paramref name="peoplePerHousehold"/> when mapping to Geopolitics people).
+    /// </summary>
+    public static double PopulationHintFromCohorts(EconomyState economy, double peoplePerHousehold = 2.5)
+    {
+        ArgumentNullException.ThrowIfNull(economy);
+        var households = economy.Cohorts.Values.Sum(c => c.HouseholdCount);
+        return households * peoplePerHousehold;
+    }
+
+    /// <summary>
+    /// Sync demography population from Economy cohorts (does not overwrite WorkingAgeShare).
+    /// </summary>
+    public static void SyncDemographyFromEconomy(
+        NationState nation,
+        EconomyState economy,
+        double peoplePerHousehold = 2.5,
+        double? unemployment = null)
+    {
+        ArgumentNullException.ThrowIfNull(nation);
+        ArgumentNullException.ThrowIfNull(economy);
+        nation.Demography.Population = PopulationHintFromCohorts(economy, peoplePerHousehold);
+        if (unemployment is { } u)
+            nation.Demography.Unemployment = Math.Clamp(u, 0, 1);
     }
 }

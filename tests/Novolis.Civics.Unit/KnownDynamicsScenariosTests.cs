@@ -553,6 +553,81 @@ public sealed class KnownDynamicsScenariosTests
         }
     }
 
+    [Test]
+    public async Task High_Tax_Raises_Emigration_Pressure_Vs_Moderate_Tax()
+    {
+        var high = Fixtures.BaselineDemocracy();
+        var mod = Fixtures.BaselineDemocracy();
+        high.Demography.Population = 1_000_000;
+        mod.Demography.Population = 1_000_000;
+        high.Policy.HouseholdTaxRate = 0.45;
+        high.Policy.TransferShare = 0.1;
+        mod.Policy.HouseholdTaxRate = 0.18;
+        mod.Policy.TransferShare = 0.35;
+        var oh = CivicEngine.ApplyPeriod(high, PeriodContext.Neutral);
+        var om = CivicEngine.ApplyPeriod(mod, PeriodContext.Neutral);
+        await Assert.That(oh.EmigrationPressure).IsGreaterThan(om.EmigrationPressure);
+        await Assert.That(om.ImmigrationAttractiveness).IsGreaterThan(oh.ImmigrationAttractiveness);
+    }
+
+    [Test]
+    public async Task Pop_Labor_Capacity_Raises_Tax_Vs_High_Unemployment()
+    {
+        var employed = Fixtures.BaselineDemocracy();
+        var jobless = Fixtures.BaselineDemocracy();
+        employed.Demography.Population = 1_000_000;
+        jobless.Demography.Population = 1_000_000;
+        employed.Demography.WorkingAgeShare = 0.7;
+        jobless.Demography.WorkingAgeShare = 0.7;
+        employed.Demography.Unemployment = 0.05;
+        jobless.Demography.Unemployment = 0.45;
+        var oEmp = CivicEngine.ApplyPeriod(employed, PeriodContext.Neutral);
+        var oJob = CivicEngine.ApplyPeriod(jobless, PeriodContext.Neutral);
+        await Assert.That(oEmp.TaxCollected).IsGreaterThan(oJob.TaxCollected);
+        await Assert.That(oEmp.LaborForceDemandHint).IsGreaterThan(oJob.LaborForceDemandHint);
+    }
+
+    [Test]
+    public async Task Net_Outmigration_Drags_Legitimacy_Vs_Zero_Migration()
+    {
+        var leave = Fixtures.BaselineDemocracy();
+        var stay = Fixtures.BaselineDemocracy();
+        leave.Demography.Population = 1_000_000;
+        stay.Demography.Population = 1_000_000;
+        leave.Civic.Legitimacy = 0.65;
+        stay.Civic.Legitimacy = 0.65;
+        CivicEngine.ApplyPeriod(leave, new PeriodContext { NetMigration = -80_000 });
+        CivicEngine.ApplyPeriod(stay, new PeriodContext { NetMigration = 0 });
+        await Assert.That(leave.Civic.Legitimacy).IsLessThan(stay.Civic.Legitimacy);
+        await Assert.That(leave.Demography.Population).IsLessThan(stay.Demography.Population);
+    }
+
+    [Test]
+    public async Task Agent_Eases_Tax_When_Emigration_Pressure_High_And_Treasury_Healthy()
+    {
+        var n = Fixtures.BaselineDemocracy();
+        n.Treasury = n.Gdp * 0.1;
+        n.Demography.LastEmigrationPressure = 0.7;
+        n.Policy.HouseholdTaxRate = 0.32;
+        n.Policy.TransferShare = 0.2;
+        n.Civic.Approval = 0.5;
+        new HeuristicFiscalAgent().AdjustPolicy(n);
+        await Assert.That(n.Policy.HouseholdTaxRate).IsLessThan(0.32);
+        await Assert.That(n.Policy.TransferShare).IsGreaterThan(0.2);
+    }
+
+    [Test]
+    public async Task Zero_Population_Keeps_Legacy_Gdp_Tax_Path()
+    {
+        var n = Fixtures.BaselineDemocracy();
+        n.Demography.Population = 0;
+        var expected = n.Gdp * 0.22 / 12.0; // control≈1, capacity varies — just ensure finite + no labor hint
+        var o = CivicEngine.ApplyPeriod(n, PeriodContext.Neutral);
+        await Assert.That(o.TaxCollected).IsGreaterThan(0);
+        await Assert.That(Near(o.LaborForceDemandHint, 0)).IsTrue();
+        await Assert.That(o.TaxCollected).IsLessThan(expected * 1.3);
+    }
+
     static bool Near(double actual, double expected) => Math.Abs(actual - expected) < Eps;
 }
 

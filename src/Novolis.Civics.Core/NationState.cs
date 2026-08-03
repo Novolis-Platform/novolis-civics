@@ -29,6 +29,9 @@ public sealed class NationState
     /// <summary>Optional Economy State legal-entity binding.</summary>
     public Guid? EconomyStateEntityId { get; set; }
 
+    /// <summary>Nation-level demography (synced from Geopolitics / Economy hosts).</summary>
+    public DemographicState Demography { get; init; } = new();
+
     public static NationState Create(string name, GovernmentType? government = null, int? seed = null)
     {
         var rng = seed is { } s ? new Random(s) : Random.Shared;
@@ -39,6 +42,41 @@ public sealed class NationState
             Government = government ?? GovernmentRules.Roll(rng),
         };
     }
+}
+
+/// <summary>
+/// Nation demography stocks. Spatial distribution lives in Geopolitics provinces;
+/// labor cohorts live in Economy — hosts sync into this aggregate.
+/// </summary>
+public sealed class DemographicState
+{
+    /// <summary>Total population. When ≤ 0, tax uses GDP-only path (backward compatible).</summary>
+    public double Population { get; set; }
+
+    /// <summary>Share of population in working age [0, 1].</summary>
+    public double WorkingAgeShare { get; set; } = 0.65;
+
+    /// <summary>Monthly natural growth rate (e.g. 0.0008 ≈ 1%/year).</summary>
+    public double NaturalGrowthRate { get; set; } = 0.0008;
+
+    /// <summary>Unemployment proxy [0, 1] (host-observed or engine estimate).</summary>
+    public double Unemployment { get; set; }
+
+    /// <summary>Last period net migration (people; +in / −out).</summary>
+    public double LastNetMigration { get; set; }
+
+    /// <summary>Last computed emigration pressure [0, 1] (also on PeriodOutcome).</summary>
+    public double LastEmigrationPressure { get; set; }
+
+    public DemographicState Clone() => new()
+    {
+        Population = Population,
+        WorkingAgeShare = WorkingAgeShare,
+        NaturalGrowthRate = NaturalGrowthRate,
+        Unemployment = Unemployment,
+        LastNetMigration = LastNetMigration,
+        LastEmigrationPressure = LastEmigrationPressure,
+    };
 }
 
 /// <summary>External facts supplied by Geopolitics / game hosts for one period.</summary>
@@ -60,6 +98,12 @@ public sealed class PeriodContext
     /// <summary>When set (≥ 0), overrides transfer payment with observed Economy transfers.</summary>
     public double? ObservedTransfersPaid { get; init; }
 
+    /// <summary>Host-observed net migration this period (people; +in / −out).</summary>
+    public double? NetMigration { get; init; }
+
+    /// <summary>Host-observed unemployment [0, 1].</summary>
+    public double? UnemploymentObserved { get; init; }
+
     public static PeriodContext Neutral { get; } = new();
 }
 
@@ -77,4 +121,13 @@ public sealed class PeriodOutcome
     /// Hosts map this onto force stocks; Civics does not own land/air/naval units.
     /// </summary>
     public double ForceCapabilityDemand { get; init; }
+
+    /// <summary>Push factor [0, 1] for Geopolitics population migration.</summary>
+    public double EmigrationPressure { get; init; }
+
+    /// <summary>Pull factor [0, 1] for inbound migration attractiveness.</summary>
+    public double ImmigrationAttractiveness { get; init; }
+
+    /// <summary>Hint for hosts mapping working-age pop × (1 − unemployment) to labor.</summary>
+    public double LaborForceDemandHint { get; init; }
 }
