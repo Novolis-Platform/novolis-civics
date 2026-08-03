@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageId>Novolis.Civics.EconomyBridge</PackageId>
+    <IsPackable>true</IsPackable>
+    <RootNamespace>Novolis.Civics.EconomyBridge</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <Description>Map Civics FiscalPolicy to Economy StatePolicy and bind NationId to State entities.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Novolis.Civics.Core\Novolis.Civics.Core.csproj" />
+    <PackageReference Include="Novolis.Economy.Core" />
+  </ItemGroup>
+</Project>

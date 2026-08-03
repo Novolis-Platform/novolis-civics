@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageId>Novolis.Civics.Agents</PackageId>
+    <IsPackable>true</IsPackable>
+    <RootNamespace>Novolis.Civics.Agents</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <Description>Heuristic fiscal/regime agents that adjust FiscalPolicy only.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Novolis.Civics.Core\Novolis.Civics.Core.csproj" />
+  </ItemGroup>
+</Project>

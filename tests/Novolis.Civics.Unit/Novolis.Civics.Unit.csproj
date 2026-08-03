@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Novolis.Civics.Unit</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <OutputType>Exe</OutputType>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+    <NovolisStackAnalyzers>false</NovolisStackAnalyzers>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="TUnit" />
+    <ProjectReference Include="..\..\src\Novolis.Civics.Core\Novolis.Civics.Core.csproj" />
+    <ProjectReference Include="..\..\src\Novolis.Civics.Simulation\Novolis.Civics.Simulation.csproj" />
+    <ProjectReference Include="..\..\src\Novolis.Civics.Agents\Novolis.Civics.Agents.csproj" />
+    <ProjectReference Include="..\..\src\Novolis.Civics.EconomyBridge\Novolis.Civics.EconomyBridge.csproj" />
+  </ItemGroup>
+</Project>

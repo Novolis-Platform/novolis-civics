@@ -1,0 +1,55 @@
+<Project>
+  <PropertyGroup>
+    <NovolisGitHubRepository>novolis-civics</NovolisGitHubRepository>
+  </PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)build\version.props"
+          Condition="Exists('$(MSBuildThisFileDirectory)build\version.props')" />
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageFloatingVersionsEnabled>true</CentralPackageFloatingVersionsEnabled>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);NU1504;NU1507;NU1510;NU1603;NU1605;NU1608;NU1901;NU1902;NU1903;NU1904;NU1701</WarningsNotAsErrors>
+    <Authors>Novolis</Authors>
+    <Company>Novolis</Company>
+    <Copyright>Copyright (c) Novolis-Platform</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <EnableSourceLink>true</EnableSourceLink>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EnableSourceControlManagerQueries Condition="!Exists('$(MSBuildThisFileDirectory).git')">false</EnableSourceControlManagerQueries>
+    <EnableSourceLink Condition="!Exists('$(MSBuildThisFileDirectory).git')">false</EnableSourceLink>
+    <RepositoryType>git</RepositoryType>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true' Or '$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+    <Version Condition="'$(Version)' == '' and '$(NovolisPlatformVersion)' != ''">$(NovolisPlatformVersion).0</Version>
+    <Version Condition="'$(Version)' == ''">2026.1.0.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(MSBuildProjectDirectory.Contains('\tests\')) Or $(MSBuildProjectDirectory.Contains('/tests/')) Or $(MSBuildProjectDirectory.Contains('\tools\')) Or $(MSBuildProjectDirectory.Contains('/tools/'))">
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(MSBuildProjectDirectory.Contains('\tests\')) Or $(MSBuildProjectDirectory.Contains('/tests/'))">
+    <IsTestProject Condition="'$(IsTestProject)' == ''">true</IsTestProject>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\novolis-governance\build\Novolis.StackAnalyzers.props"
+          Condition="Exists('$(MSBuildThisFileDirectory)..\novolis-governance\build\Novolis.StackAnalyzers.props')" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildThisFileDirectory)..\novolis-governance\build\Novolis.GitHubPackages.props"
+          Condition="Exists('$(MSBuildThisFileDirectory)..\novolis-governance\build\Novolis.GitHubPackages.props')" />
+  <Import Project="$(MSBuildThisFileDirectory)..\novolis-governance\build\Novolis.PackageReadme.props"
+          Condition="Exists('$(MSBuildThisFileDirectory)..\novolis-governance\build\Novolis.PackageReadme.props')" />
+</Project>

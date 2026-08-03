@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageId>Novolis.Civics.Core</PackageId>
+    <IsPackable>true</IsPackable>
+    <RootNamespace>Novolis.Civics.Core</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <Description>
+      Bounded-minimum civic kernel: nation identity, fiscal intent, civic stocks, period settlement.
+    </Description>
+  </PropertyGroup>
+</Project>

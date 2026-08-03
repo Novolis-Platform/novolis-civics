@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageId>Novolis.Civics.Simulation</PackageId>
+    <IsPackable>true</IsPackable>
+    <RootNamespace>Novolis.Civics.Simulation</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <Description>Composition root: advance civic periods over NationState.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Novolis.Civics.Core\Novolis.Civics.Core.csproj" />
+  </ItemGroup>
+</Project>

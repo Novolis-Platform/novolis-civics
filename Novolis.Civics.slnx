@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Novolis.Civics.Core/Novolis.Civics.Core.csproj" />
+    <Project Path="src/Novolis.Civics.EconomyBridge/Novolis.Civics.EconomyBridge.csproj" />
+    <Project Path="src/Novolis.Civics.Simulation/Novolis.Civics.Simulation.csproj" />
+    <Project Path="src/Novolis.Civics.Agents/Novolis.Civics.Agents.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Novolis.Civics.Unit/Novolis.Civics.Unit.csproj" />
+  </Folder>
+</Solution>
