@@ -27,4 +27,4 @@ Kinship: Economy settles cash; Civics settles political stocks; Geopolitics supp
 dotnet test d:\novolis\novolis-civics\tests\Novolis.Civics.Unit\Novolis.Civics.Unit.csproj -p:NovolisUseProjectReferences=true
 ```
 
-Cross-repo: open `d:\novolis\novolis-governance\build\Novolis.Platform.slnx` (ProjectReference mode). Package sources: nuget.org + GitHub Packages only.
+Cross-repo: open `d:\novolis\Novolis.Platform.slnx` (ProjectReference mode). Package sources: nuget.org + GitHub Packages only.
