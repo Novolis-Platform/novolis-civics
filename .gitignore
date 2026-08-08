@@ -8,3 +8,8 @@ artifacts/
 *.nupkg
 *.snupkg
 TestResults/
+# JetBrains / Rider
+.idea/
+**/.idea/
+DotSettings.*
+*.DotSettings.user
