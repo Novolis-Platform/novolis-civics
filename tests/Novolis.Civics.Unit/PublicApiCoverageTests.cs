@@ -356,6 +356,31 @@ public sealed class PublicApiCoverageTests
     }
 
     [Test]
+    public async Task EconomyBridge_PopulationHint_Sums_Cohort_Households()
+    {
+        var region = RegionId.New();
+        var cohortId = CohortId.New();
+        var cohort = new HouseholdCohort(
+            cohortId,
+            region,
+            HouseholdCount: 40,
+            new HouseholdProfile(0.5m, 0.1m, 1m, 0m),
+            HouseholdLaborKind.Common,
+            Money.From(1m));
+        var economy = EconomyState.Empty with
+        {
+            Cohorts = new Dictionary<CohortId, HouseholdCohort> { [cohortId] = cohort },
+        };
+
+        await Assert.That(CivicEconomyBridge.PopulationHintFromCohorts(economy, peoplePerHousehold: 2.5))
+            .IsEqualTo(100);
+
+        var nation = HealthyNation();
+        CivicEconomyBridge.SyncDemographyFromEconomy(nation, economy, peoplePerHousehold: 2.0);
+        await Assert.That(nation.Demography.Population).IsEqualTo(80);
+    }
+
+    [Test]
     public async Task EconomyBridge_Rejects_Null_Economy_Inputs()
     {
         await Assert.ThrowsAsync<ArgumentNullException>(() =>
