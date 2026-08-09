@@ -1,3 +1,38 @@
+<!-- novolis-marketing:start -->
+<p align="center">
+  <a href="https://github.com/Novolis-Platform">
+    <img src="https://raw.githubusercontent.com/Novolis-Platform/.github/main/brand/logo-brand-transparent.svg" width="360" alt="Novolis"/>
+  </a>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Novolis-Platform/.github/main/brand/banners/novolis-civics.svg" width="100%" alt="novolis-civics"/>
+</p>
+
+<p align="center">
+  <strong>Civic agents and firm bridges</strong><br/>
+  Civics agents, core ledgers, and economy bridges for polity sims.
+</p>
+
+<p align="center">
+  <a href="https://novolis-platform.github.io/.github/novolis-civics/"><img src="https://img.shields.io/badge/docs-portfolio-0a7ea3" alt="docs"/></a>
+  <a href="https://github.com/Novolis-Platform/novolis-civics/actions"><img src="https://img.shields.io/github/actions/workflow/status/Novolis-Platform/novolis-civics/merge.yml?branch=main&label=merge&logo=github" alt="merge"/></a>
+  <a href="https://github.com/orgs/Novolis-Platform/packages?repo_name=novolis-civics"><img src="https://img.shields.io/badge/packages-GitHub%20Packages-0a7ea3?logo=nuget" alt="packages"/></a>
+  <a href="https://github.com/Novolis-Platform"><img src="https://img.shields.io/badge/org-Novolis--Platform-111827" alt="org"/></a>
+</p>
+
+<p align="center">
+  <a href="https://novolis-platform.github.io/.github/novolis-civics/">Docs</a>
+  ·
+  <a href="https://nuget.pkg.github.com/Novolis-Platform/index.json"><code>https://nuget.pkg.github.com/Novolis-Platform/index.json</code></a>
+  ·
+  <a href="https://github.com/Novolis-Platform/.github/blob/main/profile/README.md">Org landing</a>
+  ·
+  <a href="https://github.com/Novolis-Platform/novolis-governance">Governance</a>
+</p>
+
+---
+<!-- novolis-marketing:end -->
 # Novolis.Civics
 
 Academic **nation / polity** libraries: regime, fiscal intent, and civic stock–flow (legitimacy, approval, capacity).
@@ -28,3 +63,4 @@ dotnet test d:\novolis\novolis-civics\tests\Novolis.Civics.Unit\Novolis.Civics.U
 ```
 
 Cross-repo: open `d:\novolis\Novolis.Platform.slnx` (ProjectReference mode). Package sources: nuget.org + GitHub Packages only.
+
