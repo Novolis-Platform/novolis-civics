@@ -1,3 +1,20 @@
+<!-- novolis-package-index:start -->
+> **GitHub Packages shows this repository README on every package page** (upstream limitation).
+> Open the **package README** for install and quick start — embedded in each .nupkg and linked below.
+
+## Published packages
+
+| Package | Install | Package README |
+|---------|---------|----------------|
+| `Novolis.Civics.Agents` | `dotnet add package Novolis.Civics.Agents` | [README](https://github.com/Novolis-Platform/novolis-civics/blob/main/src/Novolis.Civics.Agents/README.md) |
+| `Novolis.Civics.Core` | `dotnet add package Novolis.Civics.Core` | [README](https://github.com/Novolis-Platform/novolis-civics/blob/main/src/Novolis.Civics.Core/README.md) |
+| `Novolis.Civics.EconomyBridge` | `dotnet add package Novolis.Civics.EconomyBridge` | [README](https://github.com/Novolis-Platform/novolis-civics/blob/main/src/Novolis.Civics.EconomyBridge/README.md) |
+| `Novolis.Civics.Simulation` | `dotnet add package Novolis.Civics.Simulation` | [README](https://github.com/Novolis-Platform/novolis-civics/blob/main/src/Novolis.Civics.Simulation/README.md) |
+
+For NuGet.org and Visual Studio, the **embedded** README.md inside each package is authoritative.
+
+<!-- novolis-package-index:end -->
+
 <!-- novolis-marketing:start -->
 <p align="center">
   <a href="https://github.com/Novolis-Platform">
