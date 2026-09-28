@@ -1,5 +1,6 @@
 using Novolis.Civics.Core;
 using Novolis.Economy.Core;
+using Novolis.Economy.Primitives;
 
 namespace Novolis.Civics.EconomyBridge;
 

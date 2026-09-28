@@ -3,6 +3,7 @@ using Novolis.Civics.Core;
 using Novolis.Civics.EconomyBridge;
 using Novolis.Civics.Simulation;
 using Novolis.Economy.Core;
+using Novolis.Economy.Primitives;
 
 namespace Novolis.Civics.Unit;
 
