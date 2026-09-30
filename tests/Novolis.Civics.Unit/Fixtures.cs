@@ -7,7 +7,7 @@ using Novolis.Economy.Primitives;
 
 namespace Novolis.Civics.Unit;
 
-file static class Fixtures
+static class Fixtures
 {
     public static NationState BaselineDemocracy()
     {
